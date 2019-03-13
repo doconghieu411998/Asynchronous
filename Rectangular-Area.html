@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Diện tích hình chữ nhật</title>
+</head>
+<body>
+	<table>
+		<tr>
+			<td>
+				Diện tích hình chữ nhật
+			</td>
+		</tr>
+		<tr>
+			<td>Chiều dài:</td>
+			<td><input type="text" id="chieudai"></td>
+		</tr>
+		<tr>
+			<td>Chiều rộng:</td>
+			<td><input type="text" id="chieurong"></td>
+		</tr>
+		<tr>
+			<td>Kết quả:</td>
+			<td><input type="text" id="ketqua"></td>
+		</tr>
+		<tr>
+			<td>
+				<input onclick="dientichhinhchunhat()" type="button" id="calculate" value="Calculate">
+			</td>
+		</tr>
+		<tr>
+			<td id="error"></td>
+		</tr>
+	</table>
+
+	<script type="text/javascript">
+		'use strict';
+
+		let add = (d,r) =>{
+			return new Promise((resole,reject) =>{
+				setTimeout( ()=>{
+					if(typeof d != 'number' || typeof r != 'number' || isNaN(d) == true || isNaN(r) == true){
+						return reject(new Error('Tham số phải có kiểu number'))
+					}
+					resole(d+r);
+				},1000)
+			}) 
+		}
+
+		let multiple =  (t) =>{
+			return new Promise((resole,reject) =>{
+				setTimeout(() => {
+					if(typeof t != 'number'){
+						return reject(new Error('Tham số phải có kiểu number'))
+					}
+					resole(t*2);
+				},1000)
+			})
+		}
+
+		function dientichhinhchunhat(){
+			let chieudai = parseInt(document.getElementById('chieudai').value);
+			let chieurong = parseInt(document.getElementById('chieurong').value);
+			add(chieudai,chieurong)
+			.then(res=>multiple(+res))
+			.then( res =>{
+				let ketqua  = document.getElementById('ketqua').value = res;
+			})
+			.catch(rej =>{
+				let error  = document.getElementById('error').innerHTML = rej;
+			})
+		}
+	</script>
+</body>
+</html>
